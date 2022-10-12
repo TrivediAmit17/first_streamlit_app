@@ -39,12 +39,12 @@ import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("use warehouse pc_rivery_wh")
-my_cur.execute("SELECT *  as Fruit from pc_rivery_db.public.fruit_load_list")
+my_cur.execute("SELECT Fruit_name from pc_rivery_db.public.fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("Fruite load list contains:")
 streamlit.dataframe(my_data_rows)
 
-my_fruit_list1 = my_fruit_list1.set_index('Fruit')
+my_fruit_list1 = my_fruit_list1.set_index('Fruit_name')
 # Let's put a pick list here so they can pick the fruit they want to include 
 add_my_fruit = streamlit.multiselect("What fruite you would like to add:", list(my_fruit_list1.index))
 #fruits_to_show = my_data_rows[add_my_fruit]
