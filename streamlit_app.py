@@ -35,8 +35,8 @@ try:
     streamlit.error("Please select a fruite to get information")
   else:
     back_from_function = get_fruityvice_data(fruit_choice)
-    streamlit.dataframe(back_from_function)  
- 
+    streamlit.dataframe(back_from_function)
+
 except URLErrror as e:
   streamlit.error()
   
@@ -58,10 +58,10 @@ if streamlit.button('Get Fruit load list'):
   my_data_rows = get_fruit_load_list()
   streamlit.dataframe(my_data_rows)
 
-
 # allow the end user to add a fruit to the list
 def insert_row_snowflake(new_fruit):
   with my_cnx.cursor() as my_cur:
+    my_cur.execute("use warehouse pc_rivery_wh")
     my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from Steamlit')")
     return "Thanks for adding " + new_fruit
 
@@ -74,9 +74,3 @@ if streamlit.button('Add a fruit to the list'):
 
 # don't run the code after this
 streamlit.stop()
-
-
-
-
-
-
