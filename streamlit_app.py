@@ -42,23 +42,28 @@ except URLErrror as e:
   
 streamlit.write('The user entered ', fruit_choice)
 
-
-
-
 #streamlit.text(fruityvice_response.json())
+
+streamlit.header("Fruite load list contains:")
+#snowflake-related functions
+def get_fruit_load_list():
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("use warehouse pc_rivery_wh")
+    my_cur.execute("SELECT Fruit_name from pc_rivery_db.public.fruit_load_list")
+    return my_cur.fetchall()
+
+ # add a button to load the fruit
+if streamlit.button('Get Fruit load list'):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  my_data_rows = get_fruit_load_list()
+  streamlit.dataframe(my_data_rows)
+
+
 
 # don't run the code after this
 streamlit.stop()
 
 
-
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("use warehouse pc_rivery_wh")
-my_cur.execute("SELECT Fruit_name from pc_rivery_db.public.fruit_load_list")
-my_data_rows = my_cur.fetchall()
-streamlit.header("Fruite load list contains:")
-streamlit.dataframe(my_data_rows)
 
 #my_fruit_list1 = my_data_rows.set_index('0')
 # Let's put a pick list here so they can pick the fruit they want to include 3
