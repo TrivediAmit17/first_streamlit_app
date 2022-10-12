@@ -40,7 +40,7 @@ def get_fruityvice_data(this_fruit_choice):
 #except URLErrror as e:
 #  streamlit.error()
   
-streamlit.write('The user entered ', fruit_choice)
+#streamlit.write('The user entered ', fruit_choice)
 
 #streamlit.text(fruityvice_response.json())
 
